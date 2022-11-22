@@ -7,10 +7,10 @@ class FightEvent (override var id : Int, override var name : String, override va
        println(id.toString() + name + " - " + story)
        println("Stoji před tebou " + enemy.name)
        // TODO - boj
-            if (true){
-                println("Won")
-                return optionWon
-            }
+        if (boj(hero)){
+            println("Won")
+            return optionWon
+        }
        println("Lost")
        return optionLost
    }
@@ -19,5 +19,19 @@ class FightEvent (override var id : Int, override var name : String, override va
         var option = vypis(hero)
         readln()
         return option.targetId;
+    }
+
+    fun boj(hero: Hero) : Boolean{
+        // TODO Boj Logika
+        return true;
+    }
+
+    override fun getAllEventoptions(): List<EventOption> {
+        return listOf(optionWon,optionLost)
+    }
+
+    override fun getEventOptionsPossible(hero: Hero): List<Boolean> {
+        if (boj(hero)) return listOf(true,false)
+        return listOf(false,true)
     }
 }

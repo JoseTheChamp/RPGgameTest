@@ -6,5 +6,6 @@ abstract class Event(){
     open var story : String = "Pribeh."
 
     abstract fun run(hero: Hero) : Int
-
+    abstract fun getAllEventoptions() : List<EventOption>
+    abstract fun getEventOptionsPossible(hero: Hero) : List<Boolean>
 }

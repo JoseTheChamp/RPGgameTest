@@ -1,8 +1,10 @@
 package Model
 
-class Scenario (var name : String,var hero: Hero , var events : List<Event>) {
-
-
+class Scenario (var name : String, var events : List<Event>) {
+lateinit var hero: Hero
+constructor(name: String, events: List<Event>, hero: Hero) : this(name,events){
+    this.hero = hero
+}
     fun playScenario(){
         var pokracuj = 0
         var next : Event
@@ -25,5 +27,4 @@ class Scenario (var name : String,var hero: Hero , var events : List<Event>) {
         }
         return StoryEvent(-1,"","", listOf<EventOption>(EventOption(0,"","")))
     }
-
 }

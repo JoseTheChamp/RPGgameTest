@@ -13,14 +13,24 @@ class StoryEvent (override var id : Int, override var name : String, override va
             i++
         }
         return readln().toInt()
-
     }
-
     override fun run(hero: Hero): Int {
         var index = vypis()
         if (index > options.count() || index <= 0){
             throw Exception("Tato moznost nebyla na vyber.")
         }
         return options[index-1].targetId
+    }
+
+    override fun getAllEventoptions(): List<EventOption> {
+        return options
+    }
+
+    override fun getEventOptionsPossible(hero: Hero): List<Boolean> {
+        var bools = arrayListOf<Boolean>()
+        for (option in options){
+            bools.add(option.isDoable(hero))
+        }
+        return bools
     }
 }

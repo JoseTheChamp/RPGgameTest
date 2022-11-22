@@ -4,6 +4,15 @@ class ChallengeEvent (override var id : Int, override var name : String, overrid
 
     fun vypis(hero: Hero) : EventOption{
         println(name + " - " + story)
+        if (logika(hero)){
+            println("Fail")
+            return optionFailed
+        }
+        println("Uspech")
+        return optionPassed
+    }
+
+    fun logika(hero: Hero) : Boolean{
         var cislo = 0
         for (stat in stats){
             when (stat.stat) {
@@ -17,19 +26,23 @@ class ChallengeEvent (override var id : Int, override var name : String, overrid
                 Stat.INTELIGENCE -> if (hero.inteligence < stat.value) cislo++
                 Stat.WISDOM -> if (hero.wisdom < stat.value) cislo++
             }
-            println("Vyzva je v " + stat.stat.toString() + " hodnota: " + stat.value.toString() + " a ty mas ")
         }
-        if (cislo != 0){
-            println("Fail")
-            return optionFailed
-        }
-        println("Uspech")
-        return optionPassed
+        if (cislo != 0) return false
+        return true
     }
 
     override fun run(hero: Hero): Int {
         var option = vypis(hero)
         readln()
         return option.targetId
+    }
+
+    override fun getAllEventoptions(): List<EventOption> {
+        return listOf(optionPassed,optionFailed)
+    }
+
+    override fun getEventOptionsPossible(hero: Hero): List<Boolean> {
+        if (logika(hero)) return listOf(true,false)
+        return listOf(false,true)
     }
 }

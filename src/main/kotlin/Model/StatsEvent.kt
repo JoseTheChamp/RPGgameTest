@@ -19,13 +19,19 @@ class StatsEvent (override var id : Int, override var name : String, override va
             }
             println(stat.stat.toString() + " " + stat.value.toString() + " na ")
         }
-
     }
-
     override fun run(hero: Hero): Int {
         vypis(hero)
         readln()
         return option.targetId
+    }
+
+    override fun getAllEventoptions(): List<EventOption> {
+        return listOf<EventOption>(option)
+    }
+
+    override fun getEventOptionsPossible(hero: Hero): List<Boolean> {
+        return listOf(option.isDoable(hero))
     }
 
 }
